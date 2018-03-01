@@ -5,6 +5,8 @@
  */
 package LogIns;
 
+import java.awt.event.WindowEvent;
+
 /**
  *
  * @author Denver Makama
@@ -86,21 +88,25 @@ public class Receptionist extends javax.swing.JFrame {
     private void jbtnPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPatientsActionPerformed
         Patients obj=new Patients();
         obj.setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jbtnPatientsActionPerformed
 
     private void jbtnDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDoctorsActionPerformed
        Doctors obj=new Doctors();
         obj.setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jbtnDoctorsActionPerformed
 
     private void jbtnPersonalDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPersonalDetailsActionPerformed
         Receptionist_PersonalInfo obj = new Receptionist_PersonalInfo ();
         obj.setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jbtnPersonalDetailsActionPerformed
 
     private void jbtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackActionPerformed
         LogIn_Portal obj = new LogIn_Portal ();
         obj.setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jbtnBackActionPerformed
 
     /**
@@ -145,4 +151,9 @@ public class Receptionist extends javax.swing.JFrame {
     private javax.swing.JButton jbtnPatients;
     private javax.swing.JButton jbtnPersonalDetails;
     // End of variables declaration//GEN-END:variables
+
+     private void systemExit()
+    {
+        WindowEvent winCloseing = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+    }
 }

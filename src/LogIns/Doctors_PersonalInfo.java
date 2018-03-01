@@ -5,6 +5,16 @@
  */
 package LogIns;
 
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Denver Makama
@@ -52,6 +62,7 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jbtnInsert = new javax.swing.JButton();
+        tfAnswer = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +84,11 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
 
         jTextField5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jTextField5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
 
         jTextField6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jTextField6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -125,10 +141,20 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
         jbtnUpdate.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnUpdate.setText("Update");
         jbtnUpdate.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnUpdateActionPerformed(evt);
+            }
+        });
 
         jbtnDelete.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnDelete.setText("Delete");
         jbtnDelete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnDeleteActionPerformed(evt);
+            }
+        });
 
         jbtnBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnBack.setText("Back");
@@ -152,6 +178,13 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
         jbtnInsert.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnInsert.setText("Insert");
         jbtnInsert.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnInsertActionPerformed(evt);
+            }
+        });
+
+        tfAnswer.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,13 +234,16 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbtnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)
-                                .addComponent(jbtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(jbtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jbtnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(52, 52, 52)
+                                        .addComponent(jbtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(jbtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(43, 43, 43))))))
         );
         layout.setVerticalGroup(
@@ -217,9 +253,9 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 35, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -240,21 +276,30 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addGap(40, 40, 40)
+                        .addComponent(jLabel2)
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel9)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel9))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(tfAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(58, 58, 58)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnUpdate)
@@ -270,7 +315,93 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
     private void jbtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackActionPerformed
        Doctors obj = new Doctors ();
             obj.setVisible(true);
+             this.dispose();
     }//GEN-LAST:event_jbtnBackActionPerformed
+
+    private void jbtnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInsertActionPerformed
+
+        String ID=jTextField5.getText();
+        String Fname=jTextField3.getText();
+        String Lname=jTextField7.getText();
+        String Age=jTextField8.getText();
+        String Gender=jTextField6.getText();
+        String PhoneNumber=jTextField2.getText();
+        String Date=jTextField1.getText();
+        String Marital=jTextField4.getText();
+        String Address=jTextField9.getText();
+        
+        
+        //INSERTING THE VALUE FROM THE VARIABLES INTO THE DATABASE TABLE
+        
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection con=DriverManager.getConnection(
+            "jdbc:mysql://localhost/101240_oop1","root","Muniale@123");
+
+            PreparedStatement stmt=con.prepareStatement("INSERT INTO `doctor table`(`DoctorID`, `First Name`, `Last Name`, `Age`, `Gender`, `Phone Number`, `Date of Joining`, `Marital Status`, `Address`) VALUES (?,?,?,?,?,?,?,?,?)");
+            stmt.setString(1,ID);
+            stmt.setString(2,Fname);
+            stmt.setString(3,Lname);
+            stmt.setString(4,Age);
+            stmt.setString(5,Gender);
+            stmt.setString(6,PhoneNumber);
+            stmt.setString(7,Date);
+            stmt.setString(8,Marital);
+            stmt.setString(9,Address);
+
+
+            int i=stmt.executeUpdate();
+            System.out.println(i+" records inserted");
+            JOptionPane.showMessageDialog(null,"Record has been Saved");
+                    DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
+                    model.addRow(new String[]{ID,Fname,Lname,Age,Gender,PhoneNumber,Date,Marital,Address});
+
+            con.close();
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"CHECK YOUR INFO");}
+        
+        
+        
+        
+    }//GEN-LAST:event_jbtnInsertActionPerformed
+
+    private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
+            DefaultTableModel model =(DefaultTableModel) jTable1.getModel();
+            model.removeRow(jTable1.getSelectedRow());
+    }//GEN-LAST:event_jbtnDeleteActionPerformed
+
+    private void jbtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (jTable1.getSelectedRow()== -1){
+            if(jTable1.getRowCount ()== 0){
+                tfAnswer.setText("No information");
+                
+            }else{
+                tfAnswer.setText("Select data");
+            }
+            
+                
+            
+        }else{
+            model.setValueAt(jTextField5.getText(), jTable1.getSelectedRow(), 0);
+            model.setValueAt(jTextField3.getText(), jTable1.getSelectedRow(), 1);
+            model.setValueAt(jTextField7.getText(), jTable1.getSelectedRow(), 2);
+            model.setValueAt(jTextField8.getText(), jTable1.getSelectedRow(), 3);
+            model.setValueAt(jTextField6.getText(), jTable1.getSelectedRow(), 4);
+            model.setValueAt(jTextField2.getText(), jTable1.getSelectedRow(), 5);
+            model.setValueAt(jTextField1.getText(), jTable1.getSelectedRow(), 6);
+            model.setValueAt(jTextField4.getText(), jTable1.getSelectedRow(), 7);
+            model.setValueAt(jTextField9.getText(), jTable1.getSelectedRow(), 8);
+            
+        }
+    }//GEN-LAST:event_jbtnUpdateActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,5 +464,11 @@ public class Doctors_PersonalInfo extends javax.swing.JFrame {
     private javax.swing.JButton jbtnDelete;
     private javax.swing.JButton jbtnInsert;
     private javax.swing.JButton jbtnUpdate;
+    private javax.swing.JTextField tfAnswer;
     // End of variables declaration//GEN-END:variables
+
+     private void systemExit()
+    {
+        WindowEvent winCloseing = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+    }
 }

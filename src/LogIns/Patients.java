@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 package LogIns;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -48,8 +57,11 @@ public class Patients extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         jbtnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable3 = new javax.swing.JTable();
         jbtnInsert = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        tfAnswer = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -66,7 +78,7 @@ public class Patients extends javax.swing.JFrame {
                 jbtnUpdateActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 110, -1));
+        getContentPane().add(jbtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 470, 110, -1));
 
         jbtnDelete.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnDelete.setText("Delete");
@@ -76,7 +88,7 @@ public class Patients extends javax.swing.JFrame {
                 jbtnDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 470, 110, -1));
+        getContentPane().add(jbtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 110, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel2.setText("ID");
@@ -101,17 +113,17 @@ public class Patients extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel7.setText("BloodGroup");
         jLabel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 170, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 170, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel3.setText("PatientType");
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 280, 180, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 180, 30));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel8.setText("DoctorID");
+        jLabel8.setText("Address");
         jLabel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 360, 180, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 180, -1));
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel10.setText("PhoneNumber");
@@ -136,7 +148,7 @@ public class Patients extends javax.swing.JFrame {
 
         jTextField5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jTextField5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, 190, 30));
+        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, 190, 30));
 
         jTextField6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jTextField6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -160,7 +172,7 @@ public class Patients extends javax.swing.JFrame {
         });
         getContentPane().add(jbtnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 160, 50));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -168,9 +180,9 @@ public class Patients extends javax.swing.JFrame {
                 "ID", "FirstName", "LastName", "Gender", "BloodGroup", "PatientType", "PhoneNumber", "DoctorID"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable3);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 540, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 540, 280));
 
         jbtnInsert.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnInsert.setText("Insert");
@@ -182,24 +194,100 @@ public class Patients extends javax.swing.JFrame {
         });
         getContentPane().add(jbtnInsert, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 100, -1));
 
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel9.setText("Age");
+        jLabel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 180, -1));
+
+        jTextField8.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jTextField8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, 190, 30));
+
+        tfAnswer.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        getContentPane().add(tfAnswer, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 490, 50));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        if(jTable3.getSelectedRow() == -1){
+            if(jTable3.getRowCount() == 0){
+                tfAnswer.setText("No information");
+            }else{
+                tfAnswer.setText("Select a patient");
+            }
+        }else{
+            model.setValueAt(jTextField7.getText(), jTable3.getSelectedRow(), 0);
+            model.setValueAt(jTextField1.getText(), jTable3.getSelectedRow(), 1);
+            model.setValueAt(jTextField9.getText(), jTable3.getSelectedRow(), 2);
+            model.setValueAt(jTextField4.getText(), jTable3.getSelectedRow(), 3);
+            model.setValueAt(jTextField6.getText(), jTable3.getSelectedRow(), 4);
+            model.setValueAt(jTextField2.getText(), jTable3.getSelectedRow(), 5);
+            model.setValueAt(jTextField3.getText(), jTable3.getSelectedRow(), 6);
+            model.setValueAt(jTextField8.getText(), jTable3.getSelectedRow(), 7);
+            model.setValueAt(jTextField5.getText(), jTable3.getSelectedRow(), 8);
+        }
+            
+        
+    
+        
     }//GEN-LAST:event_jbtnUpdateActionPerformed
 
     private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel model =(DefaultTableModel) jTable3.getModel();
+            model.removeRow(jTable3.getSelectedRow());
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
     private void jbtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackActionPerformed
         Doctors obj = new Doctors ();
         obj.setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jbtnBackActionPerformed
 
     private void jbtnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInsertActionPerformed
-        // TODO add your handling code here:
+        String ID=jTextField7.getText();
+        String Fname=jTextField1.getText();
+        String Lname=jTextField9.getText();
+        String Gender=jTextField4.getText();
+        String Age=jTextField6.getText();
+        String BloodGroup=jTextField2.getText();
+        String PhoneNumber=jTextField3.getText();
+        String PatientType=jTextField8.getText();
+        String Address=jTextField5.getText();
+        
+        
+        //INSERTING THE VALUE FROM THE VARIABLES INTO THE DATABASE TABLE
+        
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection con=DriverManager.getConnection(
+            "jdbc:mysql://locaslhost/101240_oop1","root","Muniale@123");
+
+            PreparedStatement stmt=con.prepareStatement("INSERT INTO `patients table`(`PatientID`, `First Name`, `Last Name`, `Gender`, `Age`, `Blood Group`, `Phone Number`, `Patient Type`, `Address`) VALUES (?,?,?,?,?,?,?,?,?)");
+            stmt.setString(1,ID);
+            stmt.setString(2,Fname);
+            stmt.setString(3,Lname);
+            stmt.setString(4,Gender);
+            stmt.setString(5,Age);
+            stmt.setString(6,BloodGroup);
+            stmt.setString(7,PhoneNumber);
+            stmt.setString(8,PatientType);
+            stmt.setString(9,Address);
+
+
+            int i=stmt.executeUpdate();
+            System.out.println(i+" records inserted");
+            JOptionPane.showMessageDialog(null,"Record has been Saved");
+                    DefaultTableModel model=(DefaultTableModel)jTable3.getModel();
+                    model.addRow(new String[]{ID,Fname,Lname,Gender,Age,BloodGroup,PhoneNumber,PatientType,Address});
+
+            con.close();
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"CHECK YOUR INFO");}
     }//GEN-LAST:event_jbtnInsertActionPerformed
 
     /**
@@ -247,8 +335,9 @@ public class Patients extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -256,10 +345,17 @@ public class Patients extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JButton jbtnBack;
     private javax.swing.JButton jbtnDelete;
     private javax.swing.JButton jbtnInsert;
     private javax.swing.JButton jbtnUpdate;
+    private javax.swing.JTextField tfAnswer;
     // End of variables declaration//GEN-END:variables
+
+ private void systemExit()
+    {
+        WindowEvent winCloseing = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+    }
 }

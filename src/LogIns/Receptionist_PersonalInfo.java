@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 package LogIns;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -46,12 +55,13 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
         jTextField9 = new javax.swing.JTextField();
         jbtnDelete = new javax.swing.JButton();
         jbtnBack = new javax.swing.JButton();
         jbtnUpdate1 = new javax.swing.JButton();
         jbtnInsert = new javax.swing.JButton();
+        tfAnswer = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,7 +120,7 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
 
         jTextField8.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -118,13 +128,18 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
                 "ID", "First Name", "Last Name", "Age", "Gender", "Phone Number", "Date of Joiningl", "Marital Status", "Address"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable2);
 
         jTextField9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
 
         jbtnDelete.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnDelete.setText("Delete");
         jbtnDelete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnDeleteActionPerformed(evt);
+            }
+        });
 
         jbtnBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnBack.setText("Back");
@@ -138,10 +153,22 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
         jbtnUpdate1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnUpdate1.setText("Update");
         jbtnUpdate1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnUpdate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnUpdate1ActionPerformed(evt);
+            }
+        });
 
         jbtnInsert.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnInsert.setText("Insert");
         jbtnInsert.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnInsertActionPerformed(evt);
+            }
+        });
+
+        tfAnswer.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,7 +214,10 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
                                 .addComponent(jbtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(tfAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(700, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -228,12 +258,14 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -242,7 +274,7 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
                             .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbtnDelete)
                             .addComponent(jbtnUpdate1)
@@ -256,7 +288,80 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
     private void jbtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackActionPerformed
         Receptionist obj = new Receptionist ();
         obj.setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jbtnBackActionPerformed
+
+    private void jbtnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInsertActionPerformed
+
+        String ID=jTextField1.getText();
+        String Fname=jTextField8.getText();
+        String Lname=jTextField2.getText();
+        String Age=jTextField3.getText();
+        String Gender=jTextField4.getText();
+        String PhoneNumber=jTextField5.getText();
+        String Date=jTextField7.getText();
+        String Marital=jTextField6.getText();
+        String Address=jTextField9.getText();
+        
+        
+        //INSERTING THE VALUE FROM THE VARIABLES INTO THE DATABASE TABLE
+        
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection con=DriverManager.getConnection(
+            "jdbc:mysql://localhost/101240_oop1","root","Muniale@123");
+
+            PreparedStatement stmt=con.prepareStatement("INSERT INTO `doctor table`(`DoctorID`, `First Name`, `Last Name`, `Age`, `Gender`, `Phone Number`, `Date of Joining`, `Marital Status`, `Address`) VALUES (?,?,?,?,?,?,?,?,?)");
+            stmt.setString(1,ID);
+            stmt.setString(2,Fname);
+            stmt.setString(3,Lname);
+            stmt.setString(4,Age);
+            stmt.setString(5,Gender);
+            stmt.setString(6,PhoneNumber);
+            stmt.setString(7,Date);
+            stmt.setString(8,Marital);
+            stmt.setString(9,Address);
+
+
+            int i=stmt.executeUpdate();
+            System.out.println(i+" records inserted");
+            JOptionPane.showMessageDialog(null,"Record has been Saved");
+                    DefaultTableModel model=(DefaultTableModel)jTable2.getModel();
+                    model.addRow(new String[]{ID,Fname,Lname,Age,Gender,PhoneNumber,Date,Marital,Address});
+
+            con.close();
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"CHECK YOUR INFO");}
+    }//GEN-LAST:event_jbtnInsertActionPerformed
+
+    private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
+      DefaultTableModel model =(DefaultTableModel) jTable2.getModel();
+            model.removeRow(jTable2.getSelectedRow());
+    }//GEN-LAST:event_jbtnDeleteActionPerformed
+
+    private void jbtnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdate1ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        if(jTable2.getSelectedRow () == -1){
+            if(jTable2.getRowCount() == 0){
+                tfAnswer.setText("No information");
+            }else{
+                tfAnswer.setText("Select a patient");
+            }
+        }else{
+            model.setValueAt(jTextField1.getText(), jTable2.getSelectedRow(), 0);
+            model.setValueAt(jTextField8.getText(), jTable2.getSelectedRow(), 1);
+            model.setValueAt(jTextField2.getText(), jTable2.getSelectedRow(), 2);
+            model.setValueAt(jTextField3.getText(), jTable2.getSelectedRow(), 3);
+            model.setValueAt(jTextField4.getText(), jTable2.getSelectedRow(), 4);
+            model.setValueAt(jTextField5.getText(), jTable2.getSelectedRow(), 5);
+            model.setValueAt(jTextField7.getText(), jTable2.getSelectedRow(), 6);
+            model.setValueAt(jTextField6.getText(), jTable2.getSelectedRow(), 7);
+            model.setValueAt(jTextField9.getText(), jTable2.getSelectedRow(), 8);
+        }
+    }//GEN-LAST:event_jbtnUpdate1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,7 +411,7 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -320,5 +425,11 @@ public class Receptionist_PersonalInfo extends javax.swing.JFrame {
     private javax.swing.JButton jbtnDelete;
     private javax.swing.JButton jbtnInsert;
     private javax.swing.JButton jbtnUpdate1;
+    private javax.swing.JTextField tfAnswer;
     // End of variables declaration//GEN-END:variables
+
+    private void systemExit()
+    {
+        WindowEvent winCloseing = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+    }
 }

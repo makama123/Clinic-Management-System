@@ -11,11 +11,20 @@ import LogIns.Adminstrator;
 import LogIns.Receptionist;
 import LogIns.Doctors;
 import LogIns.Patients;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+
+        
 
 /**
  *
@@ -23,9 +32,7 @@ import java.sql.ResultSet;
  */
 public class LogIn_Portal extends javax.swing.JFrame {
 
-    private Connection conn;
-    private Statement st;
-    private ResultSet rs;
+    
     /**
      * Creates new form LogIn_Portal
      */
@@ -74,6 +81,11 @@ public class LogIn_Portal extends javax.swing.JFrame {
 
         jPassword.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jPassword.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordActionPerformed(evt);
+            }
+        });
 
         jbtnLogIn.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jbtnLogIn.setText("LogIn");
@@ -163,73 +175,67 @@ public class LogIn_Portal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnResetActionPerformed
          
     private void jbtnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLogInActionPerformed
+       String password=jPassword.getText();
+        String username=jtxtUserName.getText();
+        
+        
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/101240_oop1","root","Muniale@123");
-            PreparedStatement stmt=con.prepareStatement("SELECT 'PASSWORD' FROM 'LogIn_Portal' WHERE UserName=?");
+
+            Connection con=DriverManager.getConnection(
+            "jdbc:mysql://localhost/101240_oop1","root","Muniale@123");
+
+            PreparedStatement stmt=con.prepareStatement("SELECT `PASSWORD` FROM `login` WHERE username=? ");
             stmt.setString(1,username);
-            ResultSet rs=stmt.executeQuerry();
+            
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()){
+                System.out.println(rs.getString(1));
+                
+                if(username.equals("ADMIN") && password.equals(rs.getString(1)))
+                {
+                    Adminstrator Info =new Adminstrator();
+                    Info.setVisible(true);
+                    this.dispose();
+
+                }
+                else if(password.equals(rs.getString(1)))
+                {
+                    Doctors Info =new Doctors();
+                    Info.setVisible(true);
+                    this.dispose();
+  
+                }
+                else
+                {
+                   JOptionPane.showMessageDialog(null,"Username Or Password is Either Wrong");
+                }
+                
+                
+            }
+            
+
+            con.close();
+
+        }catch(Exception e){
+            System.out.println("error");}
+ 
         
-
-
-        String password = jPassword.getText();
-        String username = jtxtUserName.getText();
-        if (password.contains("doctors") && (username.contains("Doctor")))
-        {
-            jtxtUserName.setText(null);
-            jPassword.setText(null);
-            systemExit();
-            
-            Doctors Info = new Doctors();
-            Info.setVisible(true);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null,"Invalid LogIn Details","LogIn Error!!", JOptionPane.ERROR_MESSAGE);
-            jPassword.setText(null);
-            jtxtUserName.setText(null);
-        }
-        if (password.contains("admin") && (username.contains("Adminstrator")))
-        {
-            jtxtUserName.setText(null);
-            jPassword.setText(null);
-            systemExit();
-            
-            Adminstrator Info = new Adminstrator();
-            Info.setVisible(true);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null,"Invalid LogIn Details","LogIn Error!!", JOptionPane.ERROR_MESSAGE);
-            jPassword.setText(null);
-            jtxtUserName.setText(null);
-        }
-         if (password.contains("receptionists") && (username.contains("Receptionist")))
-        {
-            jtxtUserName.setText(null);
-            jPassword.setText(null);
-            systemExit();
-            
-            Receptionist Info = new Receptionist();
-            Info.setVisible(true);
-        }
-         else
-        {
-            JOptionPane.showMessageDialog(null,"Invalid LogIn Details","LogIn Error!!", JOptionPane.ERROR_MESSAGE);
-            jPassword.setText(null);
-            jtxtUserName.setText(null);
-        }
     }//GEN-LAST:event_jbtnLogInActionPerformed
- catch(Exception e){
-     System.out.println("Error");
- }   
-    }
+ 
+    
+    
+    
 
     
 
     private void jtxtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtUserNameActionPerformed
+
+    private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,7 +289,5 @@ public class LogIn_Portal extends javax.swing.JFrame {
     {
         WindowEvent winCloseing = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
     }
-
-
 }
 

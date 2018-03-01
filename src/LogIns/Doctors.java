@@ -5,6 +5,8 @@
  */
 package LogIns;
 
+import java.awt.event.WindowEvent;
+
 /**
  *
  * @author Denver Makama
@@ -31,6 +33,7 @@ public class Doctors extends javax.swing.JFrame {
         jbtnPersonalDetails = new javax.swing.JButton();
         jbtnPatientsForm = new javax.swing.JButton();
         jbtnBack = new javax.swing.JButton();
+        jbtnPersonalDetails1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,21 +67,32 @@ public class Doctors extends javax.swing.JFrame {
             }
         });
 
+        jbtnPersonalDetails1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jbtnPersonalDetails1.setText("Receptionist");
+        jbtnPersonalDetails1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnPersonalDetails1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPersonalDetails1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                 .addComponent(jbtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(43, 43, 43)
                 .addComponent(jbtnPersonalDetails)
-                .addGap(194, 194, 194)
-                .addComponent(jbtnPatientsForm)
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addGap(191, 191, 191)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnPersonalDetails1)
+                    .addComponent(jbtnPatientsForm))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,11 +101,17 @@ public class Doctors extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 410, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnPersonalDetails)
-                    .addComponent(jbtnPatientsForm))
-                .addGap(143, 143, 143))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                        .addComponent(jbtnPersonalDetails)
+                        .addGap(386, 386, 386))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jbtnPatientsForm)
+                        .addGap(133, 133, 133)
+                        .addComponent(jbtnPersonalDetails1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -100,17 +120,28 @@ public class Doctors extends javax.swing.JFrame {
     private void jbtnPatientsFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPatientsFormActionPerformed
        Patients obj=new Patients();
         obj.setVisible(true);
+        Patients Info =new Patients();
+                    Info.setVisible(true);
+                    this.dispose();
     }//GEN-LAST:event_jbtnPatientsFormActionPerformed
 
     private void jbtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackActionPerformed
             LogIn_Portal obj = new LogIn_Portal ();
             obj.setVisible(true);
+            this.dispose();
     }//GEN-LAST:event_jbtnBackActionPerformed
 
     private void jbtnPersonalDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPersonalDetailsActionPerformed
        Doctors_PersonalInfo obj = new Doctors_PersonalInfo ();
        obj.setVisible(true);
+                this.dispose();
     }//GEN-LAST:event_jbtnPersonalDetailsActionPerformed
+
+    private void jbtnPersonalDetails1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPersonalDetails1ActionPerformed
+         Receptionist obj = new Receptionist ();
+       obj.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jbtnPersonalDetails1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,5 +183,11 @@ public class Doctors extends javax.swing.JFrame {
     private javax.swing.JButton jbtnBack;
     private javax.swing.JButton jbtnPatientsForm;
     private javax.swing.JButton jbtnPersonalDetails;
+    private javax.swing.JButton jbtnPersonalDetails1;
     // End of variables declaration//GEN-END:variables
+
+     private void systemExit()
+    {
+        WindowEvent winCloseing = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+    }
 }

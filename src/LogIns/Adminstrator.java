@@ -5,6 +5,8 @@
  */
 package LogIns;
 
+import java.awt.event.WindowEvent;
+
 /**
  *
  * @author Denver Makama
@@ -101,17 +103,20 @@ public class Adminstrator extends javax.swing.JFrame {
     private void jbtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOpenActionPerformed
         Doctors obj=new Doctors();
         obj.setVisible(true);
+         this.dispose();
         
     }//GEN-LAST:event_jbtnOpenActionPerformed
 
     private void jbtnReceptionistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReceptionistActionPerformed
         Receptionist obj=new Receptionist();
         obj.setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jbtnReceptionistActionPerformed
 
     private void jbtnPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPatientsActionPerformed
         Patients obj=new Patients();
         obj.setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_jbtnPatientsActionPerformed
 
     /**
@@ -155,4 +160,9 @@ public class Adminstrator extends javax.swing.JFrame {
     private javax.swing.JButton jbtnPatients;
     private javax.swing.JButton jbtnReceptionist;
     // End of variables declaration//GEN-END:variables
+
+     private void systemExit()
+    {
+        WindowEvent winCloseing = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+    }
 }
